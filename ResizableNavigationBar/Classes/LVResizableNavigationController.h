@@ -24,13 +24,20 @@
 
 - (void)resetNavigationDelegate;
 
+/**
+ * Use this method in order to resize the navigation bar if needed 
+ * @brief Will call the delegates once again 
+ * @param viewController: VC that should have the nav bar resized
+ */
+- (void)updateNavigationBarForViewController:(UIViewController * _Nonnull)viewController;
+
 @end
 
 @protocol LVResizableNavigationBarController
 
 @optional
-- (UIView *)resizableNavigationBarControllerSubHeaderView;
+- (UIView * _Nonnull)resizableNavigationBarControllerSubHeaderView;
 - (CGFloat)resizableNavigationBarControllerNavigationBarHeight;
-- (UIColor *)resizableNavigationBarControllerNavigationBarTintColor;
+- (UIColor * _Nonnull)resizableNavigationBarControllerNavigationBarTintColor;
 
 @end

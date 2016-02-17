@@ -33,73 +33,74 @@
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-  self = [super initWithCoder:aDecoder];
-  if (self) {
-    [self initialize];
-  }
-  return self;
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
 }
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController {
-  self = [super initWithNavigationBarClass:[LVResizableNavigationBar class] toolbarClass:nil];
-  if (self) {
-    [self initialize];
-    self.viewControllers = @[rootViewController];
-  }
-  return self;
+    self = [super initWithNavigationBarClass:[LVResizableNavigationBar class] toolbarClass:nil];
+    if (self) {
+        [self initialize];
+        self.viewControllers = @[rootViewController];
+    }
+    return self;
 }
 
 - (id)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
-  self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:nil];
-  if (self) {
-    [self initialize];
-  }
-  return self;
+    self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:nil];
+    if (self) {
+        [self initialize];
+    }
+    return self;
 }
 
 - (void)initialize {
-  self.animationObject = [LVResizableNavigationAnimation new];
-  self.delegate = self.animationObject;
+    self.animationObject = [LVResizableNavigationAnimation new];
+    self.delegate = self.animationObject;
 }
 
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
-  [super setDelegate:delegate];
+    [super setDelegate:delegate];
 }
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
-  self.view.clipsToBounds = YES;
-  UIViewController *topViewController = self.topViewController;
-  [self.animationObject updateNavigationBarForViewController:topViewController];
-  LVResizableNavigationBar *bar = (id)self.navigationBar;
-  __weak LVResizableNavigationController *weak = self;
-  bar.colorChanged = ^{
-    weak.view.backgroundColor = weak.navigationBar.barTintColor;
-  };
+    [super viewDidLoad];
+    self.view.clipsToBounds = YES;
+    UIViewController *topViewController = self.topViewController;
+    [self.animationObject updateNavigationBarForViewController:topViewController];
+    LVResizableNavigationBar *bar = (id)self.navigationBar;
+    __weak LVResizableNavigationController *weak = self;
+    bar.colorChanged = ^{
+        weak.view.backgroundColor = weak.navigationBar.barTintColor;
+    };
 }
 
 - (void)resetNavigationDelegate {
-  self.delegate = self.animationObject;
+    self.delegate = self.animationObject;
+}
+
+- (void)updateNavigationBarForViewController:(UIViewController * _Nonnull)viewController {
+    [self.animationObject updateNavigationBarForViewController:viewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  self.view.backgroundColor = self.navigationBar.barTintColor;
+    [super viewWillAppear:animated];
+    self.view.backgroundColor = self.navigationBar.barTintColor;
 }
 
 - (void)setViewControllers:(NSArray *)viewControllers {
-  [super setViewControllers:viewControllers];
-  UIViewController *viewController = self.viewControllers[0];
-  [self.animationObject updateNavigationBarForViewController:viewController];
+    [super setViewControllers:viewControllers];
+    UIViewController *viewController = self.viewControllers[0];
+    [self.animationObject updateNavigationBarForViewController:viewController];
 }
 
 - (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
-  [super setViewControllers:viewControllers animated:animated];
-  UIViewController *viewController = self.viewControllers[0];
-  [self.animationObject updateNavigationBarForViewController:viewController];
+    [super setViewControllers:viewControllers animated:animated];
+    UIViewController *viewController = self.viewControllers[0];
+    [self.animationObject updateNavigationBarForViewController:viewController];
 }
-
-
-
 
 @end
